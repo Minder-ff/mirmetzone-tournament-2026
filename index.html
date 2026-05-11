@@ -1,494 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIRMET ZONE TOURNAMENT</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
---yellow:#ffcc00;
---orange:#ff7b00;
---dark:#05020a;
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:'Rajdhani',sans-serif;
-background:#05020a;
-color:white;
-overflow-x:hidden;
-background-image:radial-gradient(circle at top,#2b1050 0%,#05020a 60%);
-}
-
-.ff-heading{
-font-family:'Oxanium',sans-serif;
-font-weight:800;
-text-transform:uppercase;
-}
-
-.glass{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.08);
-backdrop-filter:blur(14px);
-}
-
-.ff-btn{
-background:linear-gradient(135deg,var(--yellow),var(--orange));
-color:black;
-font-weight:900;
-clip-path:polygon(8% 0%,100% 0%,92% 100%,0% 100%);
-transition:0.3s;
-}
-
-.ff-btn:hover{
-transform:scale(1.03);
-filter:brightness(1.1);
-}
-
-input{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.08);
-outline:none;
-color:white;
-}
-
-input:focus{
-border-color:#ffcc00;
-}
-
-.player-card{
-position:relative;
-overflow:hidden;
-}
-
-.player-card::before{
-content:'';
-position:absolute;
-left:0;
-top:0;
-width:5px;
-height:100%;
-background:#22c55e;
-}
-
-.pending::before{
-background:#facc15;
-}
-
-@media(max-width:768px){
-.mobile-grid{
-grid-template-columns:1fr;
-}
-.mobile-player-grid{
-grid-template-columns:1fr 1fr;
-}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRMET ZONE | TOURNAMENT 2026</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --ff-yellow: #ffcc00; --bg-dark: #080212; }
+        body { 
+            font-family: 'Rajdhani', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden;
+            background-image: linear-gradient(135deg, #0d0421 0%, #080212 100%);
+        }
+        .ff-font { font-family: 'Oxanium', sans-serif; }
+        .banner-glow { box-shadow: 0 0 50px rgba(106, 13, 173, 0.3); border: 2px solid rgba(255, 204, 0, 0.1); }
+        .btn-ff {
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+            background: linear-gradient(90deg, #ffcc00 0%, #ff9900 100%);
+            color: black; font-weight: 900; transition: 0.3s;
+        }
+        .btn-ff:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--ff-yellow); }
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); transition: 0.3s;
+        }
+        .btn-back:hover { background: rgba(255, 255, 255, 0.15); border-color: var(--ff-yellow); }
+        .ff-card { background: rgba(20, 10, 40, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 204, 0, 0.1); border-radius: 20px; }
+        .hidden { display: none !important; }
+    </style>
 </head>
-
 <body>
 
-<nav class="fixed top-0 left-0 w-full z-50 bg-black/50 backdrop-blur-xl border-b border-white/10">
-<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-
-<div class="flex items-center gap-3 cursor-pointer" onclick="adminTrigger()">
-<div class="w-12 h-12 bg-yellow-400 rounded-xl rotate-45 flex items-center justify-center shadow-[0_0_25px_rgba(255,204,0,0.4)]">
-<span class="-rotate-45 text-black font-black text-2xl">M</span>
-</div>
-
-<div>
-<h1 class="ff-heading text-2xl">MIRMET <span class="text-yellow-400">ZONE</span></h1>
-<p class="text-[10px] tracking-[0.3em] text-zinc-400 font-bold">TOURNAMENT 2026</p>
-</div>
-</div>
-
-<button id="dashboardBtn" onclick="switchDashboard()" class="hidden ff-btn px-6 py-3 text-sm">DASHBOARD</button>
-
-</div>
-</nav>
-
-<section id="homePage" class="min-h-screen pt-24 pb-10 px-4">
-<div class="max-w-7xl mx-auto">
-
-<div class="relative mb-8">
-
-<img src="https://wallpapercave.com/wp/wp7439013.jpg" class="w-full h-[260px] md:h-[500px] object-cover rounded-[30px] border border-white/10">
-
-<div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent rounded-[30px]"></div>
-
-<div class="absolute bottom-6 left-6 md:left-10">
-
-<h1 class="ff-heading text-4xl md:text-8xl leading-none">
-ULTIMATE<br>
-<span class="text-yellow-400">BATTLE</span>
-</h1>
-
-<p class="mt-3 text-zinc-300 font-semibold text-sm md:text-lg">
-BERMUDA SOLO CUSTOM TOURNAMENT
-</p>
-
-<button onclick="openRegister()" class="ff-btn px-10 py-4 mt-6 text-lg">
-REGISTER AND JOIN NOW
-</button>
-
-</div>
-</div>
-
-<div class="grid md:grid-cols-3 gap-5 mobile-grid">
-
-<div class="glass rounded-3xl p-6 text-center">
-<h2 class="ff-heading text-yellow-400 text-2xl">FAST ROOM</h2>
-<p class="text-zinc-400 mt-2">Live Room ID Update</p>
-</div>
-
-<div class="glass rounded-3xl p-6 text-center">
-<h2 class="ff-heading text-yellow-400 text-2xl">LIVE PLAYERS</h2>
-<p class="text-zinc-400 mt-2">Realtime Firebase Players</p>
-</div>
-
-<div class="glass rounded-3xl p-6 text-center">
-<h2 class="ff-heading text-yellow-400 text-2xl">ADMIN PANEL</h2>
-<p class="text-zinc-400 mt-2">Verify & Delete Players</p>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<div id="registerModal" class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4">
-<div class="glass w-full max-w-xl rounded-[35px] p-7 relative">
-
-<button onclick="closeRegister()" class="absolute top-5 right-5 text-3xl text-zinc-500">×</button>
-
-<div id="step1">
-<h2 class="ff-heading text-3xl text-yellow-400 mb-7">PLAYER DETAILS</h2>
-
-<div class="space-y-4">
-<input id="name" type="text" placeholder="FULL NAME" class="w-full p-4 rounded-xl">
-<input id="ign" type="text" placeholder="FREE FIRE IGN" class="w-full p-4 rounded-xl">
-<input id="uid" type="number" placeholder="FREE FIRE UID" class="w-full p-4 rounded-xl">
-<input id="whatsapp" type="number" placeholder="WHATSAPP NUMBER" class="w-full p-4 rounded-xl">
-</div>
-
-<button onclick="nextStep()" class="ff-btn w-full py-4 mt-7 text-lg">NEXT STEP</button>
-</div>
-
-<div id="step2" class="hidden text-center">
-<h2 class="ff-heading text-3xl text-yellow-400">PAYMENT</h2>
-<p class="text-zinc-400 mt-2">PAY ₹500 AND SUBMIT TXN ID</p>
-
-<div class="bg-white p-2 rounded-2xl inline-block mt-5">
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay" class="w-52 h-52 rounded-xl">
-</div>
-
-<input id="transaction" type="text" placeholder="ENTER TRANSACTION ID" class="w-full p-4 rounded-xl mt-6 text-center">
-
-<div class="flex gap-3 mt-5">
-<button onclick="backStep()" class="w-1/3 bg-zinc-800 py-4 rounded-xl font-bold">BACK</button>
-<button id="submitBtn" onclick="submitForm()" class="w-2/3 bg-green-500 text-black font-black rounded-xl">SUBMIT</button>
-</div>
-</div>
-
-</div>
-</div>
-
-<section id="dashboardPage" class="hidden min-h-screen bg-[#05020a]">
-
-<div class="sticky top-0 z-40 border-b border-white/10 bg-black/70 backdrop-blur-xl">
-<div class="max-w-7xl mx-auto p-4 flex justify-between items-center">
-<button onclick="backHome()" class="text-zinc-400 font-bold text-sm">← BACK TO HOME</button>
-<div id="adminBadge" class="hidden bg-red-600 px-4 py-1 rounded-full text-xs font-black">ADMIN PANEL</div>
-</div>
-</div>
-
-<div class="max-w-7xl mx-auto p-4 md:p-8">
-
-<div class="grid md:grid-cols-3 gap-5 mobile-grid mb-10">
-
-<div class="glass rounded-3xl p-8 text-center">
-<p class="text-zinc-500 text-xs font-bold tracking-[0.3em]">ROOM ID</p>
-<h2 id="roomID" class="ff-heading text-4xl mt-3 text-yellow-400">LOCKED</h2>
-</div>
-
-<div class="glass rounded-3xl p-8 text-center">
-<p class="text-zinc-500 text-xs font-bold tracking-[0.3em]">PASSWORD</p>
-<h2 id="roomPass" class="ff-heading text-4xl mt-3 text-yellow-400">****</h2>
-</div>
-
-<div class="glass rounded-3xl p-8 text-center">
-<p class="text-zinc-500 text-xs font-bold tracking-[0.3em]">PLAYERS</p>
-<h2 class="ff-heading text-4xl mt-3 text-yellow-400"><span id="playerCount">0</span>/48</h2>
-</div>
-
-</div>
-
-<div id="adminPanel" class="hidden grid md:grid-cols-2 gap-6 mb-10">
-
-<div class="glass p-6 rounded-3xl">
-<h2 class="ff-heading text-yellow-400 text-2xl mb-5">UPDATE ROOM</h2>
-<div class="space-y-4">
-<input id="newRoomID" type="text" placeholder="NEW ROOM ID" class="w-full p-4 rounded-xl">
-<input id="newRoomPass" type="text" placeholder="NEW PASSWORD" class="w-full p-4 rounded-xl">
-<button onclick="updateRoom()" class="ff-btn w-full py-4">UPDATE ROOM</button>
-</div>
-</div>
-
-<div class="glass p-6 rounded-3xl">
-<h2 class="ff-heading text-yellow-400 text-2xl mb-5">PLAYER VERIFICATION</h2>
-<div id="adminPlayers" class="space-y-3 max-h-[450px] overflow-y-auto"></div>
-</div>
-
-</div>
-
-<div class="flex justify-between items-center mb-5">
-<h2 class="ff-heading text-3xl md:text-5xl">JOINED PLAYERS</h2>
-<div class="ff-heading text-yellow-400 text-2xl"><span id="playerCount2">0</span>/48</div>
-</div>
-
-<div id="playerList" class="grid mobile-player-grid md:grid-cols-4 gap-4"></div>
-
-<div class="mt-12">
-<button onclick="backHome()" class="ff-btn w-full py-5 text-lg font-black">← BACK TO HOME</button>
-</div>
-
-<div class="glass rounded-3xl p-6 mt-10">
-<h2 class="ff-heading text-yellow-400 text-3xl mb-5">RULES</h2>
-<div class="space-y-3 text-zinc-300 font-semibold">
-<p>• HACK NOT ALLOWED</p>
-<p>• ONLY REGISTERED PLAYERS CAN JOIN</p>
-<p>• TEAMING NOT ALLOWED</p>
-<p>• ROOM DETAILS WILL UPDATE BEFORE MATCH</p>
-<p>• BAD BEHAVIOUR = DISQUALIFICATION</p>
-</div>
-</div>
-
-<div class="grid md:grid-cols-2 gap-5 mt-10">
-
-<a href="https://chat.whatsapp.com/" target="_blank" class="glass rounded-3xl p-6 flex items-center justify-between">
-<div>
-<h2 class="ff-heading text-2xl text-green-400">JOIN WHATSAPP GROUP</h2>
-<p class="text-zinc-400 mt-2">Get Match Updates</p>
-</div>
-<div class="text-4xl">💬</div>
-</a>
-
-<a href="https://instagram.com/mirmetzone" target="_blank" class="glass rounded-3xl p-6 flex items-center justify-between">
-<div>
-<h2 class="ff-heading text-2xl text-pink-400">FOLLOW INSTAGRAM</h2>
-<p class="text-zinc-400 mt-2">@mirmetzone</p>
-</div>
-<div class="text-4xl">📸</div>
-</a>
-
-</div>
-
-</div>
-</section>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
-<script>
-
-const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_AUTH_DOMAIN",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_STORAGE_BUCKET",
-messagingSenderId: "YOUR_SENDER_ID",
-appId: "YOUR_APP_ID"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-let isAdmin = false;
-let tapCount = 0;
-
-window.onload = ()=>{
-loadPlayers();
-loadRoom();
-
-if(localStorage.getItem('mirmetJoined') === 'yes'){
-document.getElementById('dashboardBtn').classList.remove('hidden');
-}
-}
-
-function openRegister(){
-document.getElementById('registerModal').classList.remove('hidden');
-}
-
-function closeRegister(){
-document.getElementById('registerModal').classList.add('hidden');
-}
-
-function nextStep(){
-document.getElementById('step1').classList.add('hidden');
-document.getElementById('step2').classList.remove('hidden');
-}
-
-function backStep(){
-document.getElementById('step2').classList.add('hidden');
-document.getElementById('step1').classList.remove('hidden');
-}
-
-async function submitForm(){
-
-const txn = document.getElementById('transaction').value;
-
-if(!txn){
-alert('Enter Transaction ID');
-return;
-}
-
-await db.collection('players').add({
-name:document.getElementById('name').value,
-ign:document.getElementById('ign').value,
-uid:document.getElementById('uid').value,
-whatsapp:document.getElementById('whatsapp').value,
-txn:txn,
-verified:false,
-createdAt:firebase.firestore.FieldValue.serverTimestamp()
-});
-
-localStorage.setItem('mirmetJoined','yes');
-document.getElementById('dashboardBtn').classList.remove('hidden');
-closeRegister();
-switchDashboard();
-alert('Registration Submitted Successfully');
-}
-
-function switchDashboard(){
-document.getElementById('homePage').classList.add('hidden');
-document.getElementById('dashboardPage').classList.remove('hidden');
-window.scrollTo(0,0);
-}
-
-function backHome(){
-document.getElementById('dashboardPage').classList.add('hidden');
-document.getElementById('homePage').classList.remove('hidden');
-}
-
-function adminTrigger(){
-
-tapCount++;
-
-if(tapCount===5){
-
-const pass = prompt('Enter Admin Password');
-
-if(pass==='admin123'){
-
-isAdmin=true;
-document.getElementById('adminPanel').classList.remove('hidden');
-document.getElementById('adminBadge').classList.remove('hidden');
-switchDashboard();
-
-}else{
-alert('Wrong Password');
-}
-
-tapCount=0;
-}
-}
-
-function loadRoom(){
-
- db.collection('settings').doc('room').onSnapshot((doc)=>{
-
- if(doc.exists){
- const data = doc.data();
- document.getElementById('roomID').innerText = data.roomID || 'LOCKED';
- document.getElementById('roomPass').innerText = data.password || '****';
- }
-
- });
-}
-
-async function updateRoom(){
-
-const roomID = document.getElementById('newRoomID').value;
-const roomPass = document.getElementById('newRoomPass').value;
-
-await db.collection('settings').doc('room').set({
-roomID,
-password:roomPass
-});
-
-alert('Room Updated');
-}
-
-function loadPlayers(){
-
- db.collection('players').orderBy('createdAt','desc').onSnapshot((snapshot)=>{
-
- let html='';
- let adminHtml='';
- let total=0;
-
- snapshot.forEach((doc)=>{
-
- const player = doc.data();
- const id = doc.id;
- total++;
-
- html += `
- <div class="glass player-card ${player.verified ? '' : 'pending'} p-5 rounded-3xl">
- <div class="flex justify-between items-center">
- <div>
- <h3 class="ff-heading text-lg">${player.ign}</h3>
- <p class="text-zinc-500 text-xs">UID : ${player.uid}</p>
- </div>
- <div>
- ${player.verified ? '<span class="text-green-400 text-xs font-bold">VERIFIED</span>' : '<span class="text-yellow-400 text-xs font-bold">PENDING</span>'}
- </div>
- </div>
- </div>`;
-
- adminHtml += `
- <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
- <div class="flex justify-between items-center gap-3">
- <div>
- <h3 class="text-yellow-400 font-bold">${player.ign}</h3>
- <p class="text-xs text-zinc-400">TXN : ${player.txn}</p>
- </div>
- <div class="flex gap-2">
- ${!player.verified ? `<button onclick="verifyPlayer('${id}')" class="bg-green-600 px-3 py-2 rounded-lg text-xs font-bold">VERIFY</button>` : ''}
- <button onclick="deletePlayer('${id}')" class="bg-red-600 px-3 py-2 rounded-lg text-xs font-bold">DELETE</button>
- </div>
- </div>
- </div>`;
-
- });
-
- document.getElementById('playerList').innerHTML = html;
- document.getElementById('adminPlayers').innerHTML = adminHtml;
- document.getElementById('playerCount').innerText = total;
- document.getElementById('playerCount2').innerText = total;
-
- });
-}
-
-function verifyPlayer(id){
-db.collection('players').doc(id).update({verified:true});
-}
-
-function deletePlayer(id){
-if(confirm('Delete Player?')){
-db.collection('players').doc(id).delete();
-}
-}
-
-</script>
-
+    <nav class="fixed top-0 w-full z-[100] px-6 py-3 bg-black/80 backdrop-blur-md border-b border-yellow-500/20 flex justify-between items-center">
+        <div class="flex items-center gap-3 cursor-pointer" id="adminTrigger">
+            <img src="https://raw.githubusercontent.com/Minder-ff/mirmetzone-tournament-2026/refs/heads/main/logo.png" alt="M" class="w-10 h-10 object-contain rounded-lg border border-yellow-500 bg-black">
+            <h1 class="ff-font text-xl font-black italic">MIRMET <span class="text-yellow-500 text-2xl uppercase">Zone</span></h1>
+        </div>
+        <button id="dashBtn" onclick="switchToSection('dashboard')" class="hidden btn-ff px-6 py-2 text-xs">MY DASHBOARD</button>
+    </nav>
+
+    <main class="pt-24 pb-20">
+
+        <section id="homePage" class="max-w-6xl mx-auto px-4">
+            <div class="relative w-full rounded-[2rem] overflow-hidden banner-glow mb-12">
+                <img src="https://raw.githubusercontent.com/Minder-ff/mirmetzone-tournament-2026/refs/heads/main/banner.png" alt="Tournament Banner" class="w-full h-auto min-h-[300px] object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-6 md:bottom-12 md:left-12">
+                    <button onclick="openModal('regModal')" class="btn-ff px-12 py-5 text-xl tracking-tighter uppercase">Register Now</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+                <div class="ff-card p-6 text-center border-b-4 border-yellow-500">
+                    <p class="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">Entry Fee</p>
+                    <h3 class="ff-font text-3xl font-bold">₹500</h3>
+                </div>
+                <div class="ff-card p-6 text-center border-b-4 border-purple-600">
+                    <p class="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">Prize Pool</p>
+                    <h3 class="ff-font text-3xl font-bold text-yellow-500">₹5000</h3>
+                </div>
+                <div class="ff-card p-6 text-center"><p class="text-zinc-500 text-[10px] font-bold uppercase">Min Level</p><h3 class="ff-font text-3xl font-bold">40+</h3></div>
+                <div class="ff-card p-6 text-center"><p class="text-zinc-500 text-[10px] font-bold uppercase">Date</p><h3 class="ff-font text-3xl font-bold">MAY 17</h3></div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="hidden max-w-5xl mx-auto px-6">
+            <div class="mb-6">
+                <button onclick="switchToSection('homePage')" class="btn-back px-8 py-2 text-xs font-bold flex items-center gap-2">
+                    <span class="text-yellow-500">←</span> BACK TO HOME
+                </button>
+            </div>
+
+            <div class="ff-card p-10 text-center mb-8 bg-gradient-to-br from-[#1a0b2e] to-black border-2 border-yellow-500/20">
+                <h2 class="ff-font text-5xl font-black italic text-yellow-500 mb-2">WARRIOR HUB</h2>
+                <p id="pName" class="tracking-[0.4em] text-zinc-400 font-bold uppercase text-xs italic">SOLDIER: NOT REGISTERED</p>
+                <div class="flex justify-center gap-10 mt-10">
+                    <div class="text-center"><span id="days" class="text-4xl ff-font font-black">00</span><p class="text-[9px] text-zinc-500">DAYS</p></div>
+                    <div class="text-center"><span id="hours" class="text-4xl ff-font font-black">00</span><p class="text-[9px] text-zinc-500">HOURS</p></div>
+                    <div class="text-center"><span id="mins" class="text-4xl ff-font font-black">00</span><p class="text-[9px] text-zinc-500">MINS</p></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-12">
+                <div class="ff-card p-8 border-l-4 border-yellow-500">
+                    <p class="text-[10px] text-zinc-500 font-bold mb-1">ROOM ID</p>
+                    <h4 id="roomId" class="text-3xl ff-font font-black tracking-widest text-zinc-700 italic">LOCKED</h4>
+                </div>
+                <div class="ff-card p-8 border-l-4 border-yellow-500">
+                    <p class="text-[10px] text-zinc-500 font-bold mb-1">PASSWORD</p>
+                    <h4 id="roomPass" class="text-3xl ff-font font-black tracking-widest text-zinc-700 italic">****</h4>
+                </div>
+            </div>
+
+            <h3 class="ff-font text-xl font-bold mb-6 italic uppercase">Qualified Participants (<span id="count">0</span>)</h3>
+            <div id="playerList" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3"></div>
+        </section>
+
+        <section id="adminPanel" class="hidden max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center mb-8 border-b border-red-600 pb-4">
+                <h2 class="ff-font text-3xl font-black italic text-red-600">ADMIN CONTROL PANEL</h2>
+                <button onclick="switchToSection('homePage')" class="bg-red-600 text-white px-6 py-2 rounded font-bold text-xs">EXIT ADMIN</button>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="ff-card p-6">
+                    <h4 class="text-[10px] font-black mb-4 uppercase text-yellow-500">Room Details Update</h4>
+                    <input type="text" id="setRoom" placeholder="Room ID" class="w-full bg-white/5 p-3 rounded mb-3 border border-white/10 outline-none">
+                    <input type="text" id="setPass" placeholder="Password" class="w-full bg-white/5 p-3 rounded mb-4 border border-white/10 outline-none">
+                    <button onclick="updateMatch()" class="w-full bg-yellow-500 text-black font-black py-3 rounded text-xs uppercase">Broadcast Live</button>
+                </div>
+                <div class="ff-card p-6 md:col-span-2 flex justify-around items-center">
+                    <div class="text-center"><p class="text-5xl font-black" id="totalA">0</p><p class="text-[10px] text-zinc-500 uppercase">Players</p></div>
+                    <div class="text-center"><p class="text-5xl font-black text-green-500" id="verifiedA">0</p><p class="text-[10px] text-zinc-500 uppercase">Verified</p></div>
+                    <div class="text-center"><p class="text-5xl font-black text-red-500" id="pendingA">0</p><p class="text-[10px] text-zinc-500 uppercase">Pending</p></div>
+                </div>
+            </div>
+
+            <div class="ff-card overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-white/5 uppercase text-zinc-500">
+                        <tr>
+                            <th class="p-4">Player / IGN</th>
+                            <th class="p-4">Contact / UID</th>
+                            <th class="p-4">Txn ID</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminRows"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="regModal" class="fixed inset-0 z-[200] hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+        <div class="ff-card w-full max-w-lg p-10 relative">
+            <button onclick="closeModal('regModal')" class="absolute top-6 right-6 text-zinc-500 text-3xl">×</button>
+            <div id="s1">
+                <h3 class="ff-font text-3xl font-black italic mb-6">PLAYER <span class="text-yellow-500">ENTRY</span></h3>
+                <div class="space-y-4">
+                    <input type="text" id="fName" placeholder="Full Name" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none">
+                    <input type="text" id="ign" placeholder="In-Game Name (IGN)" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none">
+                    <input type="number" id="uid" placeholder="Free Fire UID" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none">
+                    <input type="number" id="lvl" placeholder="Level (40+)" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none">
+                    <input type="number" id="wa" placeholder="WhatsApp Number" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none">
+                </div>
+                <button onclick="toPay()" class="btn-ff w-full py-5 mt-8">CONTINUE TO PAYMENT</button>
+            </div>
+            <div id="s2" class="hidden text-center">
+                <h3 class="ff-font text-3xl font-black italic mb-6 text-yellow-500">PAYMENT</h3>
+                <div class="bg-black/50 p-6 rounded-3xl border border-white/5 mb-6">
+                    <img src="https://raw.githubusercontent.com/Minder-ff/mirmetzone-tournament-2026/refs/heads/main/qr.png" alt="QR" class="w-44 h-44 mx-auto rounded-xl mb-4 border-2 border-white">
+                    <p class="text-[10px] font-mono text-zinc-400">munushlijangpo@okhdfcbank</p>
+                </div>
+                <input type="text" id="txn" placeholder="Transaction ID (12 Digits)" class="w-full bg-white/5 p-4 rounded-xl border border-yellow-500/30 text-center mb-6 font-mono">
+                <div class="flex gap-4">
+                    <button onclick="toInfo()" class="bg-zinc-800 px-8 py-4 rounded-xl font-bold uppercase text-xs">Back</button>
+                    <button id="finalSubmit" onclick="submitData()" class="flex-grow btn-ff py-4 uppercase">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
+            authDomain: "mirmet-zone.firebaseapp.com",
+            projectId: "mirmet-zone",
+            storageBucket: "mirmet-zone.firebasestorage.app",
+            messagingSenderId: "1003782331127",
+            appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        window.onload = () => {
+            if(localStorage.getItem('registered') === 'true') {
+                document.getElementById('dashBtn').classList.remove('hidden');
+                document.getElementById('pName').innerText = "SOLDIER: " + localStorage.getItem('player_ign');
+            }
+            startTimer(); syncPlayers(); syncMatch();
+        };
+
+        // ADMIN ACCESS
+        let clickCount = 0;
+        document.getElementById('adminTrigger').onclick = () => {
+            clickCount++;
+            if(clickCount >= 7) {
+                if(prompt("ADMIN PASS:") === "MIRMET2026") { switchToSection('adminPanel'); loadAdmin(); }
+                clickCount = 0;
+            }
+            setTimeout(() => clickCount = 0, 3000);
+        };
+
+        function switchToSection(id) {
+            ['homePage', 'dashboard', 'adminPanel'].forEach(s => document.getElementById(s).classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        function toPay() { document.getElementById('s1').classList.add('hidden'); document.getElementById('s2').classList.remove('hidden'); }
+        function toInfo() { document.getElementById('s2').classList.add('hidden'); document.getElementById('s1').classList.remove('hidden'); }
+
+        async function submitData() {
+            const btn = document.getElementById('finalSubmit');
+            btn.innerHTML = "SENDING..."; btn.disabled = true;
+            const data = {
+                fullName: document.getElementById('fName').value,
+                ign: document.getElementById('ign').value,
+                uid: document.getElementById('uid').value,
+                level: document.getElementById('lvl').value,
+                wa: document.getElementById('wa').value,
+                txn: document.getElementById('txn').value,
+                status: 'pending',
+                time: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            try {
+                await db.collection("players").add(data);
+                localStorage.setItem('registered', 'true');
+                localStorage.setItem('player_ign', data.ign);
+                location.reload();
+            } catch (e) { alert(e); btn.disabled = false; }
+        }
+
+        function syncPlayers() {
+            db.collection("players").orderBy("time", "desc").onSnapshot(snap => {
+                let html = "";
+                snap.forEach(doc => {
+                    const p = doc.data();
+                    html += `<div class="ff-card p-3 text-center border-t-2 ${p.status === 'verified' ? 'border-yellow-500' : 'border-white/10 opacity-30'}">
+                        <p class="text-[10px] text-yellow-500 font-bold truncate uppercase">${p.ign}</p>
+                    </div>`;
+                });
+                document.getElementById('playerList').innerHTML = html;
+                document.getElementById('count').innerText = snap.size;
+            });
+        }
+
+        function syncMatch() {
+            db.collection("config").doc("match").onSnapshot(doc => {
+                if(doc.exists) {
+                    const d = doc.data();
+                    document.getElementById('roomId').innerText = d.room || "LOCKED";
+                    document.getElementById('roomPass').innerText = d.pass || "****";
+                    if(d.room !== "LOCKED") {
+                        document.getElementById('roomId').classList.replace('text-zinc-700', 'text-yellow-500');
+                        document.getElementById('roomPass').classList.replace('text-zinc-700', 'text-yellow-500');
+                    }
+                }
+            });
+        }
+
+        // ADMIN FUNCTIONS
+        function loadAdmin() {
+            db.collection("players").orderBy("time", "desc").onSnapshot(snap => {
+                let html = ""; let v = 0, p = 0;
+                snap.forEach(doc => {
+                    const d = doc.data(); const id = doc.id;
+                    if(d.status === 'verified') v++; else p++;
+                    html += `<tr class="border-b border-white/5">
+                        <td class="p-4 font-bold text-yellow-500 uppercase">${d.ign}<br><span class="text-zinc-500 font-normal">${d.fullName}</span></td>
+                        <td class="p-4">UID: ${d.uid}<br>WA: ${d.wa}</td>
+                        <td class="p-4 font-mono text-zinc-400">${d.txn}</td>
+                        <td class="p-4 font-black uppercase ${d.status === 'verified' ? 'text-green-500' : 'text-red-500'}">${d.status}</td>
+                        <td class="p-4 flex gap-2">
+                            <button onclick="verifyPlayer('${id}')" class="bg-green-600 px-2 py-1 rounded font-bold">VERIFY</button>
+                            <button onclick="deletePlayer('${id}')" class="bg-red-600 px-2 py-1 rounded font-bold">DEL</button>
+                        </td>
+                    </tr>`;
+                });
+                document.getElementById('adminRows').innerHTML = html;
+                document.getElementById('totalA').innerText = snap.size;
+                document.getElementById('verifiedA').innerText = v;
+                document.getElementById('pendingA').innerText = p;
+            });
+        }
+
+        async function verifyPlayer(id) { await db.collection("players").doc(id).update({status: 'verified'}); alert("Verified!"); }
+        async function deletePlayer(id) { if(confirm("Delete Player?")) await db.collection("players").doc(id).delete(); }
+        async function updateMatch() {
+            const r = document.getElementById('setRoom').value;
+            const p = document.getElementById('setPass').value;
+            await db.collection("config").doc("match").set({room: r, pass: p});
+            alert("Match Updated!");
+        }
+
+        function startTimer() {
+            const target = new Date("May 17, 2026 20:00:00").getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const d = target - now;
+                if(d > 0) {
+                    document.getElementById('days').innerText = Math.floor(d / (1000*60*60*24)).toString().padStart(2, '0');
+                    document.getElementById('hours').innerText = Math.floor((d % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2, '0');
+                    document.getElementById('mins').innerText = Math.floor((d % (1000*60*60)) / (1000*60)).toString().padStart(2, '0');
+                }
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
